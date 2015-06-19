@@ -87,52 +87,36 @@
 
 (defvar taskpaper-indent-amount 4)
 
-(define-key taskpaper-mode-map "\C-c\C-p" 'taskpaper-create-new-project)
-(define-key taskpaper-mode-map "\C-c\C-d" 'taskpaper-toggle-task)
-(define-key taskpaper-mode-map "-"        'taskpaper-electric-mark)
-(define-key taskpaper-mode-map (kbd "M-RET") 'taskpaper-newline-and-electric-mark)
-(define-key taskpaper-mode-map (kbd "M-<up>") 'taskpaper-priority-increase)
+(define-key taskpaper-mode-map "\C-c\C-p"       'taskpaper-create-new-project)
+(define-key taskpaper-mode-map "\C-c\C-d"       'taskpaper-toggle-task)
+(define-key taskpaper-mode-map "-"              'taskpaper-electric-mark)
+(define-key taskpaper-mode-map (kbd "M-RET")    'taskpaper-newline-and-electric-mark)
+(define-key taskpaper-mode-map (kbd "M-<up>")   'taskpaper-priority-increase)
 (define-key taskpaper-mode-map (kbd "M-<down>") 'taskpaper-priority-decrease)
-
-
-(define-key taskpaper-mode-map "\C-c\C-f" 'taskpaper-focus-on-current-project)
-(define-key taskpaper-mode-map "\C-c\C-t" 'taskpaper-focus-on-today)
+(define-key taskpaper-mode-map "\C-c\C-x\C-f"   'taskpaper-focus-on-current-project)
+(define-key taskpaper-mode-map "\C-c\C-x\C-t"   'taskpaper-focus-on-today)
 
 ;; Face
 (defface taskpaper-project-face
   '((((class color) (background light))
-     (:foreground "white" :weight bold))
+     (:foreground "gold1" :weight bold))
     (((class color) (background dark))
-     (:foreground "white" :weight bold)))
+     (:foreground "gold1" :weight bold)))
   "Face definition for project name")
 
 (defface taskpaper-task-face
   '((((class color) (background light))
-     (:foreground "wheat1"))
+     (:foreground "burlywood1"))
     (((class color) (background dark))
-     (:foreground "wheat1")))
+     (:foreground "burlywood1")))
   "Face definition for task")
 
 (defface taskpaper-task-marked-as-done-face
   '((((class color) (background light))
-     (:foreground "grey20" :weight light :strike-through t))
+     (:foreground "grey40" :weight light :strike-through t))
     (((class color) (background dark))
-     (:foreground "grey20" :weight light :strike-through t)))
+     (:foreground "grey40" :weight light :strike-through t)))
   "Face definition for task marked as done")
-
-(defface taskpaper-done-mark-face
-  '((((class color) (background light))
-     (:foreground "grey20"))
-    (((class color) (background dark))
-     (:foreground "grey20")))
-  "Face definition for done mark")
-
-(defface taskpaper-undone-mark-face
-  '((((class color) (background light))
-     (:foreground "yellow"))
-    (((class color) (background dark))
-     (:foreground "yelow")))
-  "Face definition for undone mark")
 
 (defface taskpaper-task-priority-3-face
   '((((class color) (background light))
@@ -162,12 +146,9 @@
      (:foreground "LimeGreen")))
   "today's tasks Face")
 
-
 (defvar taskpaper-project-face 'taskpaper-project-face)
 (defvar taskpaper-task-face 'taskpaper-task-face)
 (defvar taskpaper-task-marked-as-done-face 'taskpaper-task-marked-as-done-face)
-(defvar taskpaper-done-mark-face 'taskpaper-done-mark-face)
-(defvar taskpaper-undone-mark-face 'taskpaper-undone-mark-face)
 (defvar taskpaper-task-today-face 'taskpaper-task-today-face)
 (defvar taskpaper-task-priority-1-face 'taskpaper-task-priority-1-face)
 (defvar taskpaper-task-priority-2-face 'taskpaper-task-priority-2-face)
@@ -175,21 +156,20 @@
 
 (defvar taskpaper-font-lock-keywords
   '(
-	("^.+:[ \t]*$" 0 taskpaper-project-face)
-    ("^[ \t]*\\(-\\)\\(.*\\).*$"
-     (1 taskpaper-undone-mark-face t)
-     (2 taskpaper-task-face t))
+	("^.+:[ \t]*\\([ \t]*@.+\\)*$" 0 taskpaper-project-face)
+    ("^[ \t]*\\(-.*\\)$" 1 taskpaper-task-face)
 
-	(".+@today.*" 0 taskpaper-task-today-face t)
+	(".+@today.*" (0 taskpaper-task-today-face prepend))
 
-	("^.+@priority\(1\)$" 0 taskpaper-task-priority-1-face t)
-	("^.+@priority\(2\)$" 0 taskpaper-task-priority-2-face t)
-	("^.+@priority\(3\)$" 0 taskpaper-task-priority-3-face t)
+	("^.+@priority\(1\)$" (0 taskpaper-task-priority-1-face prepend))
+	("^.+@priority\(2\)$" (0 taskpaper-task-priority-2-face prepend))
+	("^.+@priority\(3\)$" (0 taskpaper-task-priority-3-face prepend))
 
-	;; if it's done, it's done... make sure we display it as done
-    ("^[ \t]*\\(-\\)\\(.+\\)@done.*$"
-     (0 taskpaper-done-mark-face t)
-     (2 taskpaper-task-marked-as-done-face t))))
+	;; ;; Set the face for "@done" items.
+	;; ;; This will need to be updated to allow for arbritrary colors
+	;; ;; for arbitrary tags.
+    ("^[ \t]*\\(.+@done.*\\)$" (1 taskpaper-task-marked-as-done-face prepend))
+	))
 
 ;; Taskpaper major mode
 (define-derived-mode taskpaper-mode fundamental-mode "Taskpaper"
@@ -255,12 +235,13 @@
         (insert " "))
     (self-insert-command arg)))
 
+;; Replace this with "delete-trailing-whitespace."
 (defun tedroden/trim-line ()
   (interactive)
   (save-excursion 
 	(end-of-line)
 	(setq eol (point))
-	(while (= ?  (char-before ))
+	(while (= ? (char-before ))
 	  (backward-char))
 	(delete-region eol (point))))
 
