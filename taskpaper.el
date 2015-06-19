@@ -1,23 +1,18 @@
-;;; taskpaper.el --- Taskpaper implementation for Emacs
+;;; taskpaper.el --- Taskpaper editing mode
 
 ;; Copyright (C) 2008 Kentaro Kuribayashi (original)
 ;; Copyright (c) 2010 Jonas Oberschweiber <jonas@oberschweiber.com> (updates)
 ;; Copyright (C) 2010 Ted Roden (updates)
+;; Copyright (C) 2015 Bryan Patzke
 
+;; Version: 20150619
 
 ;; Author: kentaro <kentarok@gmail.com>
 ;; Author: Jonas Oberschweiber <jonas@oberschweiber.com>
 ;; Author: Ted Roden <tedroden@gmail.com>
+;; Author: Bryan Patzke <projects@2bpencil.com>
 
 ;; Keywords: tools, task
-
-
-;; Changed handling of "done" tasks: uses TaskPaper's @done notation
-;; instead of +/- at the beginning of the line
-;; Changed the indentation function to automatically indent tasks that
-;; appear below projects (only one level supported).
-;; I don't know if the other functions work (didn't test them as I
-;; don't use them (yet)).
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -36,13 +31,14 @@
 
 ;;; Commentary:
 
-;; * Install
+;; Installation
 ;;
-;; After download this file, just put the code below into your .emacs
+;; After downloading this file, put it somewhere in your load-path.
+;; Then put the code below into your .emacs.
 ;;
 ;;   (require 'taskpaper)
 ;;
-;; * Usage
+;; Usage
 ;;
 ;; (1) Create a Taskpaper file
 ;;
@@ -92,7 +88,6 @@
 (defvar taskpaper-indent-amount 4)
 
 (define-key taskpaper-mode-map "\C-c\C-p" 'taskpaper-create-new-project)
-(define-key taskpaper-mode-map "\C-c\C-t" 'taskpaper-create-new-task)
 (define-key taskpaper-mode-map "\C-c\C-d" 'taskpaper-toggle-task)
 (define-key taskpaper-mode-map "-"        'taskpaper-electric-mark)
 (define-key taskpaper-mode-map (kbd "M-RET") 'taskpaper-newline-and-electric-mark)
@@ -106,9 +101,9 @@
 ;; Face
 (defface taskpaper-project-face
   '((((class color) (background light))
-     (:foreground "white" :underline "darkred" :weight bold :family "8x13" :height 2.0))
+     (:foreground "white" :weight bold))
     (((class color) (background dark))
-     (:foreground "white" :underline "darkred" :weight bold :family "8x13" :height 2.0)))
+     (:foreground "white" :weight bold)))
   "Face definition for project name")
 
 (defface taskpaper-task-face
