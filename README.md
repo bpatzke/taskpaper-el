@@ -9,7 +9,8 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 - Open, create, and edit taskpaper files.
 - Increase/decrease priority with a keystroke.
 - Focus on a single project or tag.
-- List of key commands:
+
+### List of key commands:
 
 	`C-c C-p` Create a new project.
 	`C-c C-t` Create a new task. (Doesn't work -- conflict with "Focus on today".
