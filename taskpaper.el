@@ -79,11 +79,11 @@
 
 ;; Hook
 (defvar taskpaper-mode-hook nil
-  "*Hooks for Taskpaper major mode")
+  "*Hooks for Taskpaper major mode.")
 
 ;; Keymap
 (defvar taskpaper-mode-map (make-keymap)
-  "*Keymap for Taskpaper major mode")
+  "*Keymap for Taskpaper major mode.")
 
 (defvar taskpaper-indent-amount 4)
 
@@ -173,7 +173,7 @@
 
 ;; Taskpaper major mode
 (define-derived-mode taskpaper-mode fundamental-mode "Taskpaper"
-  "Major mode to manage tasks easily"
+  "Major mode for editing taskpaper documents."
   (interactive)
   (kill-all-local-variables)
   (setq major-mode 'taskpaper-mode)
@@ -189,17 +189,17 @@
 
 ;; Commands
 (defun taskpaper-create-new-project (name)
-  "Creates new project"
+  "Create new project called NAME."
   (interactive "sProject Name: ")
   (insert (concat name ":\n\n")))
 
 (defun taskpaper-create-new-task (task)
-  "Creates new task"
+  "Create new TASK."
   (interactive "sNew Task: ")
   (insert (concat "- " task)))
 
 (defun taskpaper-toggle-task ()
-  "Marks task as done"
+  "Mark task as done."
   (interactive)
   (save-excursion
     (beginning-of-line)
@@ -209,7 +209,7 @@
         (insert mark)))))
 
 (defun taskpaper-indent-line ()
-  "Detects if list mark is needed when indented"
+  "Detect if list mark is needed when indented." ;; ???
   (interactive)
   (let ((mark-flag nil)
         (in-project nil)
@@ -221,24 +221,25 @@
         (forward-line -1)
         (when (looking-at "^.+:[ \t]*$") (setq in-project t))
         (when (looking-at "-") (setq mark-flag t))))
-    (when mark-flag (insert "- "))    
+    (when mark-flag (insert "- "))
     (when in-project (indent-line-to taskpaper-indent-amount))
     (setq indent-tabs-mode old-tabs)))
 
 (defun taskpaper-electric-mark (arg)
-  "Inserts a list mark"
+  "Insert a list mark using ARG. I'm not really sure how yet."
   (interactive "*p")
   (if (zerop (current-column))
       (progn
         (taskpaper-indent-line)
-        (self-insert-command arg)      
+        (self-insert-command arg)
         (insert " "))
     (self-insert-command arg)))
 
 ;; Replace this with "delete-trailing-whitespace."
 (defun tedroden/trim-line ()
+  "This is probably going away."
   (interactive)
-  (save-excursion 
+  (save-excursion
 	(end-of-line)
 	(setq eol (point))
 	(while (= ? (char-before ))
@@ -247,10 +248,10 @@
 
 
 (defun taskpaper-newline-and-electric-mark ()
-  "Newline and new task"
+  "Create a new task on the next line."
   (interactive)
   (progn
-	(end-of-line) 
+	(end-of-line)
 	(insert "\n")
 	(taskpaper-indent-line)
 	(insert "- ")))
@@ -261,7 +262,7 @@
   (taskpaper-focus-on-tag "@today"))
 
 (defun taskpaper-focus-on-tag (tag)
-  "List all tasks tagged with tag in a new (read-only) buffer."
+  "List all tasks tagged with TAG in a new (read-only) buffer."
   (interactive)
   (message (format "Focusing on %s" tag))
 
@@ -287,13 +288,13 @@
 
 	(setq tag-regexp (format "^.*%s.*" tag))
 
-	(while moving 
+	(while moving
 
-	  (when (looking-at "^\\(.+\\):[ \t]+*$") 
+	  (when (looking-at "^\\(.+\\):[ \t]+*$")
 		(setq current-project (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
 		(setq current-project-has-tasks nil))
 	  
-	  (when (looking-at tag-regexp) 
+	  (when (looking-at tag-regexp)
 		;; set the current task
 		(setq current-task (thing-at-point 'line))
 
@@ -333,9 +334,9 @@
 	(setq moving t)
 
 	;; crawl back to project line
-	(while moving 
+	(while moving
 	  
-	  (when (looking-at "^\\(.+\\):[ \t]+*$") 
+	  (when (looking-at "^\\(.+\\):[ \t]+*$")
 		(setq current-project (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
 		(message (format "Found project %s" current-project))
 		(setq moving nil))
@@ -391,18 +392,18 @@
 	  (taskpaper-mode))))
 
 
-(defun taskpaper-priority-increase ()
-  "increase the priority by one"
+(defun taskpaper-priority-increase () ;; This need to be fixed -- it never stops increasing.
+  "Increase the priority by one."
   (interactive)
   (taskpaper-priority-adjust 1))
 
 (defun taskpaper-priority-decrease ()
-  "increase the priority by one"
+  "Increase the priority by one."
   (interactive)
   (taskpaper-priority-adjust -1))
 
-(defun taskpaper-priority-adjust (number)
-  "Adjust the priority by x"
+(defun taskpaper-priority-adjust (number) ;; This doesn't make sense unless we have a lot of priority levels.
+  "Adjust the priority by NUMBER."
   (interactive)
   (save-excursion
 	(progn
@@ -413,9 +414,9 @@
 	  (if (looking-at ".*\\( ?@priority(\\([0-9]\\))\\).*")
 
 		  ;; cache the current-priority
-		  (let ((current-priority (string-to-number 
-								   (buffer-substring-no-properties 
-									(match-beginning 2) 
+		  (let ((current-priority (string-to-number
+								   (buffer-substring-no-properties
+									(match-beginning 2)
 									(match-end 2)))))
 
 			(setq new-priority (+ number current-priority))
@@ -441,12 +442,12 @@
 
 		  ;; create a default priority
 		  (tedroden/trim-line)
-		  (end-of-line) 
+		  (end-of-line)
 		  (insert " @priority(1)"))))))
 
 
 (defun taskpaper-toggle-today ()
-  "Tag this task with @today"
+  "Tag this task with @today."
   (interactive)
   (save-excursion
 	;; get to the start of the line
