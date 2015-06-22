@@ -156,8 +156,8 @@
 
 (defvar taskpaper-font-lock-keywords
   '(
-	("^.+:[ \t]*\\([ \t]*@.+\\)*$" 0 taskpaper-project-face)
-    ("^[ \t]*\\(-.*\\)$" 1 taskpaper-task-face)
+	("^.+:[ \t]*\\(?:[ \t]*@.+\\)*$" 0 taskpaper-project-face)
+    ("^[ \t]*\\(?:-.*\\)$" 0 taskpaper-task-face)
 
 	(".+@today.*" (0 taskpaper-task-today-face prepend))
 

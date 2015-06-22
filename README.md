@@ -88,6 +88,14 @@ A project is a line that ends with a colon (:).
 Keeping with a strict application of this definition, then any `@` tags applied
 to a project should go **before** the colon.
 
+However, it doesn't really make sense to force users to ensure that tags come
+before the colon (:). Therefore, this mode will accept tags after the colon (:).
+
+This make the full definition:
+
+	A project is a line that ends with a colon (:), optionally followed by one
+	or more tags.
+
 ### Tasks
 
 A task is a line that begins with a hyphen and a space.
@@ -103,6 +111,10 @@ Tags begin with the `@` character, and appear at the end of Projects or Tasks.
 
 Anything that isn't a Project, Task or Tag is a note. Essentially, it's plain
 text that doesn't start with a hyphen or end in a colon.
+
+## Ideas and notes
+
+Check pre-defined faces to see if I should use them.
 
 ## Authors
 
