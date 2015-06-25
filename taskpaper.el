@@ -56,13 +56,13 @@
 ;;
 ;;   Project 1:
 ;;
-;;   + task 1
-;;   + task 2
+;;   - task 1
+;;   - task 2
 ;;
 ;;   Project 2:
 ;;
-;;   + task 3
-;;   + task 4
+;;   - task 3
+;;   - task 4
 ;;
 ;; (3) Mark task as done
 ;;
@@ -70,10 +70,11 @@
 ;;
 ;; (4) Misc:
 ;;
-;;   `M-<up>' increase the priority of a task
-;;   `M-<down>' decrease the priority of a task
-;;   `M-RET' create a new task from anywhere on the line
-;;   `C-M-T' View a list of tasks tagged with "@today" in a new buffer `taskpaper-list-today`
+;;   `M-<up>'   Increase the priority of a task.
+;;   `M-<down>' Decrease the priority of a task.
+;;   `M-RET'    Create a new task from anywhere on the line.
+;;   `C-M-T'    View a list of tasks tagged with "@today".
+;;              in a new buffer `taskpaper-list-today`.
 
 ;;; Code:
 
@@ -337,7 +338,8 @@
 	(while moving
 	  
 	  (when (looking-at "^\\(.+\\):[ \t]+*$")
-		(setq current-project (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
+		(setq current-project
+			  (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
 		(message (format "Found project %s" current-project))
 		(setq moving nil))
 
@@ -353,7 +355,8 @@
 
 	  ;; setup the new buffer
 	  (message (format "Focusing on %s" current-project))
-	  (setq taskpaper-focus-buffer (format "* Taskpaper Project Focus: %s *" current-project))
+	  (setq taskpaper-focus-buffer
+			(format "* Taskpaper Project Focus: %s *" current-project))
 	  
 	  (if (get-buffer taskpaper-focus-buffer)
 		  (kill-buffer taskpaper-focus-buffer))
