@@ -4,44 +4,59 @@ This is a simple emacs mode for editing [Taskpaper] files.
 
 The URL for this project: http://github.com/bpatzke/taskpaper-el
 
-## How things work now
+## Features
 
-- Open, create, and edit taskpaper files.
-- Increase/decrease priority with a keystroke.
-- Focus on a single project or tag.
+- Open, create, and edit taskpaper files with (soon-to-be customizable)
+  faces for Projects, Tasks, Notes and Tags.
+- Customizable priority range. (There's no sanity checking on this... yet.)
+- Focus on a single project or tag. (Currently disabled until I can work on it.)
 
 ### List of key commands:
 
-	`C-c C-p` Create a new project.
-	`C-c C-t` Create a new task. (Doesn't work -- conflict with "Focus on today".
-	           Remove -- it's not needed anyway.)
-	`C-c C-d` Mark task as done (Doesn't work -- just deletes the character under point.)
-	`-`        Hyphen
-                   On a blank line: Adds indent and `-` to make a task.
-				   On a line starting with an indent: Nothing.
-				   At the beginning of a "Project" line: Turns the project into a task.
-	`M-RET`    Newline and hyphen. (works)
-	`M-<up>`   Increase priority.
-	`M-<down>` Decrease priority.
-	`C-c C-f` Focus on the current project.
-	`C-c C-t` Focus on today.
+#### Working key bindings
+
+	`C-c C-p`     Create a new project.
+	`C-c C-x C-t` Toggle @today tag on item.
+	`-`           New task (on a line with only whitespace).
+	`M-RET`       New task
+	`M-<up>`      Increase priority.
+	`M-<down>`    Decrease priority.
+
+#### Broken or not-yet-implemented key bindings
+
+	`C-c C-d`     Mark task as done (Doesn't work -- just deletes the character.
+		          under point.)
+	`C-c C-f`     Fold project.
+	`C-c C-i`     Make sub-item (i.e. indent one level)
+	`C-c TAB`     Make sub-item (i.e. indent one level)
+	`C-c C-x C-p` Focus on project.
 
 ## What needs to be fixed
 
 - When you hit return on a project line, the project line indents.
-- When you create a project with the key binding (`C-c C-p`), it adds a blank line after
-  the project line. It shouldn't.
-- Tasks --  On a line starting with an indent: Add a space after the `-` to turn it into a task.
-- For all function names with "electric-mark", change it to "new-task".
-- If a Project starts with a hyphen, it is treated as a task. `(Partially fixed in version 20150619.)`
-- You can set the priority arbitrarily high, but once you get to level 10, you get
-  a second @priority tag with a new set of numbers.
+- When you create a project with the key binding (`C-c C-p`), it adds a
+  blank line after the project line. It shouldn't.
+- Tasks --  On a line starting with an indent: Add a space after the `-` to
+  turn it into a task.
+- Replace with "electric-mark", change it to "new-task" (or something).
+- If a Project starts with a hyphen, it is treated as a task. I've fixed this
+  so the "project" face is used, but the item still "behaves" like a task.
+  `(Partially fixed in version 20150619.)`
+
+### Finished
+
 - Anything other than whitepace after the `:` on a project line with cause it
   to not be a project anymore. `(Fixed in version 20150619.)`
-- Remove the "Create new task" key binding. It conflicts with the "Focus on today",
-  and there are plenty of other ways to accomplish the same thing. `(Fixed in version 20150619.)`
-- Change the face of Projects to be bold monospace. `(Fixed in version 20150619.)`
-- Change the face of "done" items to be lighter -- it's unreadable on dark backgrounds. `(Fixed in version 20150619.)`
+- Remove the "Create new task" key binding. It conflicts with the
+  "Focus on today", and there are plenty of other ways to accomplish
+  the same thing. `(Fixed in version 20150619.)`
+- Change the face of Projects to be bold monospace.
+  `(Fixed in version 20150619.)`
+- Change the face of "done" items to be lighter -- it's unreadable on dark
+  backgrounds. `(Fixed in version 20150619.)`
+- You can set the priority arbitrarily high, but once you get to level 10,
+  you get a second @priority tag with a new set of numbers.
+  `(Fixed in version 20150625.)`
 
 ## What should be added
 
@@ -50,22 +65,17 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
   a date stamp.
 - Add a flag to control whether tasks are automatically indented after a
   project. Default = t.
-- Add the ability to set colors for tags.
-
-### New key bindings
-
-	`C-c C-p`     Create a new project.
-	`C-c C-d`     Mark task as done (Doesn't work -- just deletes the character
-		          under point.)
-	`-`           New task (on a line with only whitespace).
-	`M-RET`       New task
-	`C-c C-f`     Fold project.
-	`C-c C-i`     Make sub-item (i.e. indent one level)
-	`C-c TAB`     Make sub-item (i.e. indent one level)
-	`C-c C-x C-p` Focus on project.
-	`C-c C-x C-t` Focus on today.
-	`M-<up>`      Increase priority.
-	`M-<down>`    Decrease priority.
+- Customization:
+  - Faces:
+    - Projects
+    - Tasks
+    - Notes
+    - Tags
+  - Priority levels `(Added in version 20150625.)`
+- Make max and min priority levels, and give them customization options.
+  - Min default: 1
+  - Max default: 5
+  `(Added in version 20150625.)`
 
 ## TaskPaper format
 
