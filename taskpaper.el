@@ -226,7 +226,7 @@
     (setq indent-tabs-mode old-tabs)))
 
 (defun taskpaper-electric-mark (arg)
-  "Insert a list mark using ARG. I'm not really sure how yet."
+  "Insert a list mark using ARG.  I'm not really sure how yet."
   (interactive "*p")
   (if (zerop (current-column))
       (progn

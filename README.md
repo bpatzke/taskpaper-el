@@ -45,22 +45,27 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 ## What should be added
 
-- Folding.
-- When creating a new project with C-c C-p, a prefix argument will prompt for a date stamp.
-- Add a flag to control whether tasks are automatically indented after a project. Default = t.
+- Folding. `(C-c TAB (C-i))`
+- When creating a new project with `C-c C-p`, a prefix argument will prompt for
+  a date stamp.
+- Add a flag to control whether tasks are automatically indented after a
+  project. Default = t.
 - Add the ability to set colors for tags.
 
 ### New key bindings
 
 	`C-c C-p`     Create a new project.
-	`C-c C-d`     Mark task as done (Doesn't work -- just deletes the character under point.)
+	`C-c C-d`     Mark task as done (Doesn't work -- just deletes the character
+		          under point.)
 	`-`           New task (on a line with only whitespace).
 	`M-RET`       New task
-	`M-<up>`      Increase priority.
-	`M-<down>`    Decrease priority.
 	`C-c C-f`     Fold project.
+	`C-c C-i`     Make sub-item (i.e. indent one level)
+	`C-c TAB`     Make sub-item (i.e. indent one level)
 	`C-c C-x C-p` Focus on project.
 	`C-c C-x C-t` Focus on today.
+	`M-<up>`      Increase priority.
+	`M-<down>`    Decrease priority.
 
 ## TaskPaper format
 
