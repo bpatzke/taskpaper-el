@@ -24,8 +24,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 #### Broken or not-yet-implemented key bindings
 
-	`C-c C-d`     Mark task as done (Doesn't work -- just deletes the character.
-		          under point.)
+	`C-c C-d`     Mark task as done (The function istelf doesn't work.)
 	`C-c C-f`     Fold project.
 	`C-c C-i`     Make sub-item (i.e. indent one level)
 	`C-c TAB`     Make sub-item (i.e. indent one level)
@@ -38,14 +37,14 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
   blank line after the project line. It shouldn't.
 - Tasks --  On a line starting with an indent: Add a space after the `-` to
   turn it into a task.
-- Replace with "electric-mark", change it to "new-task" (or something).
+- Replace "electric-mark" with "new-task" (or something) globally.
 - If a Project starts with a hyphen, it is treated as a task. I've fixed this
   so the "project" face is used, but the item still "behaves" like a task.
   `(Partially fixed in version 20150619.)`
 
 ### Finished
 
-- Anything other than whitepace after the `:` on a project line with cause it
+- Anything other than whitepace after the `:` on a project line will cause it
   to not be a project anymore. `(Fixed in version 20150619.)`
 - Remove the "Create new task" key binding. It conflicts with the
   "Focus on today", and there are plenty of other ways to accomplish
@@ -60,7 +59,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 ## What should be added
 
-- Folding. `(C-c TAB (C-i))`
+- Folding. `(C-c TAB (C-i))` At least Project folding, if not task folding.
 - When creating a new project with `C-c C-p`, a prefix argument will prompt for
   a date stamp.
 - Add a flag to control whether tasks are automatically indented after a
@@ -73,9 +72,9 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
     - Tags
   - Priority levels `(Added in version 20150625.)`
 - Make max and min priority levels, and give them customization options.
+  `(Added in version 20150625.)`
   - Min default: 1
   - Max default: 5
-  `(Added in version 20150625.)`
 
 ## TaskPaper format
 
