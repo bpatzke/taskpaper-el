@@ -5,7 +5,7 @@
 ;; Copyright (C) 2010 Ted Roden (updates)
 ;; Copyright (C) 2015 Bryan Patzke
 
-;; Version: 20150625
+;; Version: 20150707
 
 ;; Author: kentaro <kentarok@gmail.com>
 ;; Author: Jonas Oberschweiber <jonas@oberschweiber.com>
@@ -225,10 +225,11 @@
   (interactive)
   (save-excursion
     (beginning-of-line)
-    (when (looking-at "[- ]")
-      (let ((mark (if (equal (match-string 0) " ") "-" " ")))
-        (delete-char 1)
-        (insert mark)))))
+	(when (looking-at "^[ \t]*-")
+	  (end-of-line)
+	  (insert
+	   (concat " @done("
+			   (format-time-string "%Y-%m-%d)"))))))
 
 (defun taskpaper-indent-line ()
   "Detect if list mark is needed when indented." ;; ???

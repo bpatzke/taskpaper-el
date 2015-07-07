@@ -24,7 +24,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 #### Broken or not-yet-implemented key bindings
 
-	`C-c C-d`     Mark task as done (The function istelf doesn't work.)
+	`C-c C-d`     Mark task as done
 	`C-c C-f`     Fold project.
 	`C-c C-i`     Make sub-item (i.e. indent one level)
 	`C-c TAB`     Make sub-item (i.e. indent one level)
@@ -56,6 +56,8 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 - You can set the priority arbitrarily high, but once you get to level 10,
   you get a second @priority tag with a new set of numbers.
   `(Fixed in version 20150625.)`
+- Fixed the "mark as done" function to append "@done(<datestamp>)" to the item.
+  `(Fixed in version 20150707.)`
 
 ## What should be added
 
