@@ -24,7 +24,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 #### Broken or not-yet-implemented key bindings
 
-	`C-c C-d`     Mark task as done
+	`C-c C-d`     Mark task as done (make this a toggle)
 	`C-c C-f`     Fold project.
 	`C-c C-i`     Make sub-item (i.e. indent one level)
 	`C-c TAB`     Make sub-item (i.e. indent one level)
@@ -32,6 +32,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 ## What needs to be fixed
 
+- Update the `toggle-task-done` function actually toggle the @done state.
 - When you hit return on a project line, the project line indents.
 - When you create a project with the key binding (`C-c C-p`), it adds a
   blank line after the project line. It shouldn't.
@@ -56,7 +57,7 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 - You can set the priority arbitrarily high, but once you get to level 10,
   you get a second @priority tag with a new set of numbers.
   `(Fixed in version 20150625.)`
-- Fixed the "mark as done" function to append "@done(<datestamp>)" to the item.
+- Fixed the "mark as done" function to append "@done([datestamp])" to the item.
   `(Fixed in version 20150707.)`
 
 ## What should be added
