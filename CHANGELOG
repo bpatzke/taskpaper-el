@@ -1,0 +1,27 @@
+## 20150708
+- Moved changes from README.md to new CHANGELOG file.
+- Updated README.md
+- Replaced `tedroden/trim-line` with `bp/trim-line` which uses `delete-trailing-whitespace`
+- Removed extra newline from `taskpaper-create-new-project`.
+- Chanced `taskpaper-toggle-task-done` from just deleting the `-` at the beginning
+  of the line to adding/removing @done(datestamp) from the end of the line.
+
+## 20150707
+- Fixed the "mark as done" function to append "@done([datestamp])" to the item.
+
+## 20150625
+- You can set the priority arbitrarily high, but once you get to level 10,
+  you get a second @priority tag with a new set of numbers.
+- Added customizable priority levels. There is no sanity checking on this yet.
+
+## 20150619
+- Anything other than whitepace after the `:` on a project line will cause it
+  to not be a project anymore.
+- Remove the "Create new task" key binding. It conflicts with the
+  "Focus on today", and there are plenty of other ways to accomplish
+  the same thing.
+- Change the face of Projects to be bold monospace.
+- Change the face of "done" items to be lighter -- it's unreadable on dark
+  backgrounds.
+- Updated the logic so that the "project" face is used when a line ends with
+  a `:`, but the item still "behaves" like a task.

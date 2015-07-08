@@ -5,7 +5,7 @@
 ;; Copyright (C) 2010 Ted Roden (updates)
 ;; Copyright (C) 2015 Bryan Patzke
 
-;; Version: 20150707
+;; Version: 20150708
 
 ;; Author: kentaro <kentarok@gmail.com>
 ;; Author: Jonas Oberschweiber <jonas@oberschweiber.com>
@@ -209,12 +209,23 @@
 ;; start up when we see these files
 (add-to-list 'auto-mode-alist (cons "\\.taskpaper$" 'taskpaper-mode))
 
+;; Utility funcitons
+(defun bp/trim-line ()
+  (interactive)
+  (save-excursion
+	(beginning-of-line)
+	(set-mark (point))
+	(end-of-line)
+	(delete-trailing-whitespace)))
+
 ;; Commands
 (defun taskpaper-create-new-project (name)
   "Create new project called NAME."
   (interactive "sProject Name: ")
-  (insert (concat name ":\n\n")))
+  (insert (concat name ":\n")))
 
+;; Make sure this moves to the next line, and adjusts indentation to match the
+;; any existing indentation.
 (defun taskpaper-create-new-task (task)
   "Create new TASK."
   (interactive "sNew Task: ")
@@ -225,11 +236,28 @@
   (interactive)
   (save-excursion
     (beginning-of-line)
-	(when (looking-at "^[ \t]*-")
+	(if (looking-at ".*\\( ?@done\\(([[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\})\\)?\\).*")
+		;; delete the @done tag
+		(delete-region (match-beginning 1) (match-end 1))
+	  (bp/trim-line)
 	  (end-of-line)
 	  (insert
 	   (concat " @done("
 			   (format-time-string "%Y-%m-%d)"))))))
+
+(defun taskpaper-toggle-today ()
+  "Tag current item with @today."
+  (interactive)
+  (save-excursion
+	;; get to the start of the line
+	(beginning-of-line)
+	;; already tagged?
+	(if (looking-at ".*\\( ?@today\\).*")
+		;; delete the @today tag
+		(delete-region (match-beginning 1) (match-end 1))
+	  (bp/trim-line)
+	  (end-of-line)
+	  (insert " @today"))))
 
 (defun taskpaper-indent-line ()
   "Detect if list mark is needed when indented." ;; ???
@@ -258,17 +286,6 @@
         (self-insert-command arg)
         (insert " "))
     (self-insert-command arg)))
-
-;; Replace this with "delete-trailing-whitespace."
-(defun tedroden/trim-line ()
-  "This is probably going away."
-  (interactive)
-  (save-excursion
-	(end-of-line)
-	(setq eol (point))
-	(while (= ? (char-before ))
-	  (backward-char))
-	(delete-region eol (point))))
 
 (defun taskpaper-newline-and-electric-mark ()
   "Create a new task on the next line."
@@ -460,26 +477,9 @@ However, I might add the ability to set the priority of an item at
 			(message "No priority to decrease")
 
 		  ;; create a default priority
-		  (tedroden/trim-line)
+		  (bp/trim-line)
 		  (end-of-line)
 		  (insert " @priority(1)"))))))
-
-(defun taskpaper-toggle-today ()
-  "Tag current item with @today."
-  (interactive)
-  (save-excursion
-	;; get to the start of the line
-	(beginning-of-line)
-
-	;; already tagged?
-	(if (looking-at ".*\\( ?@today\\).*")
-		;; delete the @today tag
-		(delete-region (match-beginning 1) (match-end 1))
-
-	  (tedroden/trim-line)
-	  (end-of-line)
-	  
-	  (insert " @today"))))
 		  
 (provide 'taskpaper)
 ;;; taskpaper.el ends here
