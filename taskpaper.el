@@ -191,8 +191,7 @@
 	;; ;; Set the face for "@done" items.
 	;; ;; This will need to be updated to allow for arbritrary colors
 	;; ;; for arbitrary tags.
-    ("^[ \t]*\\(.+@done.*\\)$" (1 taskpaper-task-marked-as-done-face prepend))
-	))
+    ("^[ \t]*\\(.+@done.*\\)$" (1 taskpaper-task-marked-as-done-face prepend))))
 
 ;; Taskpaper major mode
 (define-derived-mode taskpaper-mode fundamental-mode "Taskpaper"
@@ -236,8 +235,8 @@
   (interactive)
   (save-excursion
     (beginning-of-line)
-	(if (looking-at ".*\\( ?@done\\(([[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\})\\)?\\).*")
-		;; delete the @done tag
+	(if (looking-at ".*\\( ?@done\\(?:([[:digit:]]\\{4\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\})\\)*\\)")
+		;; Delete the @done tag (with optional date stamp).
 		(delete-region (match-beginning 1) (match-end 1))
 	  (bp/trim-line)
 	  (end-of-line)

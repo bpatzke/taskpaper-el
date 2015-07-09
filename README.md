@@ -13,27 +13,22 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 	- Max and min priority levels
 	  - Min default: 1
 	  - Max default: 5
-
 - Focus on a single project or tag. (Currently disabled until I can work on it.)
 
-### List of key commands:
+### Key bindings:
 
-#### Working key bindings
+	`C-c C-p`     Create a new project.
+	`-`           New task (on a line with only whitespace).
+	`C-c C-i`     Make sub-item (i.e. indent one level) [^1]
+	`C-c TAB`     Make sub-item (i.e. indent one level) [^1]
 
 	`C-c C-d`     Mark task as done
-	`C-c C-p`     Create a new project.
+	`C-c C-f`     Fold project. [^1]
 	`C-c C-x C-t` Toggle @today tag on item.
-	`-`           New task (on a line with only whitespace).
 	`M-RET`       New task
-	`M-<up>`      Increase priority. (disabled temporarily)
+	`M-<up>`      Increase priority.[^2]
 	`M-<down>`    Decrease priority. (disabled temporarily)
-
-#### Broken or not-yet-implemented key bindings
-
-	`C-c C-f`     Fold project.
-	`C-c C-i`     Make sub-item (i.e. indent one level)
-	`C-c TAB`     Make sub-item (i.e. indent one level)
-	`C-c C-x C-p` Focus on project.
+	`C-c C-x C-p` Focus on project. [^1]
 
 ## To be fixed
 
@@ -132,3 +127,7 @@ Updated in 2015 by me ([Bryan Patzke]).
 [Jonas Oberschweiber]: http://github.com/jonasoberschweiber/taskpaper-el
 [Ted Roden]: https://github.com/tedroden/taskpaper-el
 [Bryan Patzke]: https://github.com/bpatzke/taskpaper-el
+
+[^1]: Still on the todo list.
+
+[^2]: Disabled temporarily while I sort out other things.
