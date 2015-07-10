@@ -6,56 +6,81 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 
 ## Features
 
-- Open, create, and edit taskpaper files with (soon-to-be customizable)
-  faces for Projects, Tasks, Notes and Tags.
+- Open, create, and edit taskpaper files with (soon-to-be customizable) faces for
+  Projects, Tasks, Notes and Tags.
 - Customization:
-	- Priority levels
-	- Max and min priority levels
-	  - Min default: 1
-	  - Max default: 5
+  - Priority levels
+  - Max and min priority levels
+	- Min default: 1
+	- Max default: 5
 - Focus on a single project or tag. (Currently disabled until I can work on it.)
 
 ### Key bindings:
 
-	`C-c C-p`     Create a new project.
-	`-`           New task (on a line with only whitespace).
-	`C-c C-i`     Make sub-item (i.e. indent one level) [^1]
-	`C-c TAB`     Make sub-item (i.e. indent one level) [^1]
-
-	`C-c C-d`     Mark task as done
-	`C-c C-f`     Fold project. [^1]
+	`C-c C-p`     Create a new project. Prompt for due date with prefix argument.
+	`-`           New task (as the first non-whitespace character on a line, or
+		          on a line with only whitespace).
+	`TAB`         Indent one level. Unindent with prefix argument. [^1]
+	`C-c C-d`     Mark item as done.
+	`C-c C-f`     Fold project. Prefix arg -> fold all projects. [^1]
 	`C-c C-x C-t` Toggle @today tag on item.
-	`M-RET`       New task
-	`M-<up>`      Increase priority.[^2]
-	`M-<down>`    Decrease priority. (disabled temporarily)
+	`M-RET`       New task on the next line
+	`M-<up>`      Increase priority. [^2]
+	`M-<down>`    Decrease priority. [^2]
 	`C-c C-x C-p` Focus on project. [^1]
 
-## To be fixed
+### Expected behavior:
+- **When you type a hyphen** (`-`)
+  - On any blank line regardless of leading/trailing whitespace, or as the
+	first non-whitespace character on a line that has other non-whitespace
+	characters.
+	- Create a new task.
+	  - If the previous line is a Project, indent one level more than the
+		Project.
+	  - If the previous line is a Task or Note, indent to the same level as
+		the previous Task line.
+	  - If the item is already a task, do nothing.
+	  - If the item is a project, do nothing.
+	- Otherwise, just output the hyphen (``-``).
+- **New Project** command (``C-c C-p``)
+  - On a blank line, or a line with only whitespace, prompt for Project title
+	and create new Project.
+  - If the item is already a Project, do nothing.
+  - If the item is a Task, convert it to a Project. (i.e. remove hyphen ``-``
+	and append ``:``)
+  - If the item is a Note, convert it to a Project. (i.e. append ``:``)
+- Indentation behavior:
+  - ``M-RET`` -> new task on the next line
+	- If the current line is a Project, indent the new task to the next level.
+	- If the current line is a Task, indent the new task to the same level as
+	  the current line.
+	- If the current line is a Note, indent to the same level as the previous
+	  task.
+  - ``TAB``
+	- TBD
 
-- When you hit return on a project line, the project line indents.
-- Update the `-` command to create a task on any blank line regardless of
-  leading whitespace. Indentation should be automatically adjusted based on
-  preceding items.
-- Replace "electric-mark" with "new-task" (or something) globally.
-- If a Project starts with a hyphen, it is treated as a task. I've fixed this
-  so the "project" face is used, but the item still "behaves" like a task.
+## To Do
 
-## To be added
-
-- Folding. `(C-c TAB (C-i))` At least Project folding, if not task folding.
-- When creating a new project with `C-c C-p`, a prefix argument will prompt for
-  a date stamp.
-- Add a flag to control whether tasks are automatically indented after a
-  project. Default = t.
-- Bounds checking on priority levels
+- Make it stop indenting projects when I hit return at the end of the line.
+- Replace **electric-mark** with **new-task** (or something) globally.
+- Fix and/or verify that the "Expected behavior" behaves as expected.
+- If a Project starts with a hyphen, it is treated as a task.
+  - I've fixed this so that the "project" face is used, but the item still
+	**behaves** like a task.
+	*Related:* Make a ``taskpaper-project-p`` function?
+- Add Project folding.
+- Add a flag to control whether tasks are automatically indented after a project.
+  Default = t. (maybe)
+- Add bounds checking on priority levels
 	- Min >= 0
 	- Max <= 100(?)
-- Customization:
+- Add Customization:
   - Faces:
     - Projects
     - Tasks
     - Notes
     - Tags
+  - Indentation (Default=2 spaces)
 
 ## TaskPaper format
 
