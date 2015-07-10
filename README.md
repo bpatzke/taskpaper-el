@@ -20,14 +20,19 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
 	`C-c C-p`     Create a new project. Prompt for due date with prefix argument.
 	`-`           New task (as the first non-whitespace character on a line, or
 		          on a line with only whitespace).
-	`TAB`         Indent one level. Unindent with prefix argument. [1](#1)
+	`TAB`         Indent one level. Unindent with prefix argument.
 	`C-c C-d`     Mark item as done.
-	`C-c C-f`     Fold project. Prefix arg -> fold all projects. [1](#1)
+	`C-c C-f`     Fold project. Prefix arg -> fold all projects.
 	`C-c C-x C-t` Toggle @today tag on item.
 	`M-RET`       New task on the next line
-	`M-<up>`      Increase priority. [2](#2)
-	`M-<down>`    Decrease priority. [2](#2)
-	`C-c C-x C-p` Focus on project. [1](#1)
+	`M-<up>`      Increase priority.
+	`M-<down>`    Decrease priority.
+	`C-c C-x C-p` Focus on project.
+
+#### Notes
+
+	Some of thes are still on the todo list. Others are disabled temporarily
+	while I sort out other things.
 
 ### Expected behavior:
 - **When you type a hyphen** (`-`)
@@ -153,8 +158,3 @@ Updated in 2015 by me ([Bryan Patzke]).
 [Ted Roden]: https://github.com/tedroden/taskpaper-el
 [Bryan Patzke]: https://github.com/bpatzke/taskpaper-el
 
-## Footnotes
-
-<a name="fn1">1</a>: Still on the todo list.
-
-<a name="fn2">2</a>: Disabled temporarily while I sort out other things.
