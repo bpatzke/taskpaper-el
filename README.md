@@ -153,6 +153,6 @@ Updated in 2015 by me ([Bryan Patzke]).
 [Ted Roden]: https://github.com/tedroden/taskpaper-el
 [Bryan Patzke]: https://github.com/bpatzke/taskpaper-el
 
-[1]: Still on the todo list.
+###### 1: Still on the todo list.
 
-[2]: Disabled temporarily while I sort out other things.
+###### 2: Disabled temporarily while I sort out other things.
