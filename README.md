@@ -64,29 +64,6 @@ The URL for this project: http://github.com/bpatzke/taskpaper-el
   - `TAB`
 	- TBD
 
-## To Do
-
-- Make it stop indenting projects when I hit return at the end of the line.
-- Replace **electric-mark** with **new-task** (or something) globally.
-- Fix and/or verify that the "Expected behavior" behaves as expected.
-- If a Project starts with a hyphen, it is treated as a task.
-  - I've fixed this so that the "project" face is used, but the item still
-	**behaves** like a task.
-	*Related:* Make a `taskpaper-project-p` function?
-- Add Project folding.
-- Add a flag to control whether tasks are automatically indented after a project.
-  Default = t. (maybe)
-- Add bounds checking on priority levels
-	- Min >= 0
-	- Max <= 100(?)
-- Add Customization:
-  - Faces:
-    - Projects
-    - Tasks
-    - Notes
-    - Tags
-  - Indentation (Default=2 spaces)
-
 ## TaskPaper format
 
 This definition was taken from this [Macdrifter] article. I'll see if I can find
